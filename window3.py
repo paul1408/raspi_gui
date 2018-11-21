@@ -600,11 +600,11 @@ class Window(QWidget):
         self.clock_box_3.addWidget(self.time_label_txt_3)
         self.title_box2_3.addWidget(self.frame3_3)
 
-        self.label4 = QLabel()
-        self.label4.setText('CONNECT SERIAL')
-        self.label4.setStyleSheet(
+        self.label33 = QLabel()
+        self.label33.setText('CONNECT SERIAL')
+        self.label33.setStyleSheet(
             'font-size: 40px; padding:50px 10px 0px 5px; color: %s;height:20px' % self.green_color)
-        self.label4.mousePressEvent = self.toggle_serial
+        self.label33.mousePressEvent = self.toggle_serial
 
         self.label3 = QLabel()
         self.label3.setText('START REC')
@@ -613,20 +613,22 @@ class Window(QWidget):
 
         self.layout3.addLayout(self.title_box1_3)
         self.layout3.addLayout(self.title_box2_3)
-        self.layout3.addWidget(self.label4)
+        self.layout3.addWidget(self.label33)
         self.layout3.addWidget(self.label3)
         self.layout3.addStretch()
         self.pages[3].setLayout(self.layout3)
         # ################### END PAGE 3
 
         # ######### PAGE 4 MQ HELP
-        self.layout4 = QVBoxLayout()
-        self.layout4.setContentsMargins(5, 5, 5, 5)
+        self.layout_4 = QVBoxLayout()
+        self.layout_4.setContentsMargins(5, 5, 5, 5)
 
-        label1 = QLabel()
-        label1.setText('MQ HELP')
-        self.layout4.addWidget(label1)
-        self.pages[4].setLayout(self.layout4)
+        label4 = QLabel()
+        label4.setText('MQ HELP')
+        label4.setStyleSheet('font-size: 26px; padding:50px 10px 0px 5px; color: %s;height:20px' % self.green_color)
+        self.layout_4.addWidget(label4)
+
+        self.pages[4].setLayout(self.layout_4)
         # ################### END PAGE 4
 
         # ######### STACK
@@ -709,14 +711,14 @@ class Window(QWidget):
             self.rec_signal.connect(self.bgWork.recCmd)
             self.bgWork.start()
 
-            self.label4.setText('DISCONNECT SERIAL')
-            self.label4.setStyleSheet(
+            self.label33.setText('DISCONNECT SERIAL')
+            self.label33.setStyleSheet(
                 'font-size: 40px; padding: 50px 0px 0px 5px; color: %s;height:20px' % self.red_color)
         else:
             self.bg_stop_signal.emit()
 
-            self.label4.setText('CONNECT SERIAL')
-            self.label4.setStyleSheet(
+            self.label33.setText('CONNECT SERIAL')
+            self.label33.setStyleSheet(
                 'font-size: 40px; padding: 50px 0px 0px 5px; color: %s;height:20px' % self.green_color)
 
 
