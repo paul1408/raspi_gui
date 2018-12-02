@@ -781,11 +781,10 @@ class Window(QWidget):
 
         self.layout_4.addLayout(self.title_box2_4)
 
+        self.layout_4.addSpacing(10)
+
         self.label4 = QLabel()
-        self.label4.setText('MQ HELP')
-        self.label4.setStyleSheet('font-size: 26px; padding:50px 10px 0px 5px; color: %s;height:20px' % self.green_color)
         self.layout_4.addWidget(self.label4)
-        self.layout_4.addStretch()
 
         self.pages[4].setLayout(self.layout_4)
         # ################### END PAGE 4
@@ -837,7 +836,7 @@ class Window(QWidget):
         self.current_page = 3
 
     def select_menu_help(self, sensor_nr):
-        self.label4.setText(self.sensor_pixmap[sensor_nr])
+        self.label4.setPixmap(QPixmap('res/pack/data_%s' % self.sensor_pixmap[sensor_nr]))
         self.stack.setCurrentIndex(4)
         self.current_page = 4
         print(sensor_nr)
