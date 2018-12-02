@@ -475,11 +475,47 @@ class Window(QWidget):
 
         self.layout_2.addLayout(self.title_box2_2)
 
-        label2 = QLabel()
-        label2.setText('Data fusion')
-        label2.setStyleSheet('font-size: 24px;padding: 0px 0px 0px 90px; color: %s;' % self.font_gray_color)
-        self.layout_2.addWidget(label2)
-        self.layout_2.addStretch()
+        self.data_grid_frame = QFrame()
+        self.data_grid_frame.setStyleSheet('background-color:%s;' % self.gray_color)
+        self.data_grid = QGridLayout(self.data_grid_frame)
+
+        self.data_grid.setColumnMinimumWidth(0, 60)
+
+        self.substance_label = QLabel()
+        self.substance_label.setText('Substance')
+        self.substance_label.setStyleSheet('font-size: 18px;padding: 0px 0px 0px 0px; color: %s;' % self.white_color)
+        self.data_grid.addWidget(self.substance_label, 0, 1, 1, 3)
+
+        self.formula_label = QLabel()
+        self.formula_label.setText('Formula')
+        self.formula_label.setStyleSheet('font-size: 18px;padding: 0px 0px 0px 0px; color: %s;' % self.white_color)
+        self.data_grid.addWidget(self.formula_label, 0, 4, 1, 2)
+
+        self.data_grid.setColumnMinimumWidth(5, 60 * 5)
+
+        self.probability_label = QLabel()
+        self.probability_label.setText('Probability')
+        self.probability_label.setStyleSheet('font-size: 18px;padding: 0px 0px 0px 0px; color: %s;' % self.white_color)
+        self.data_grid.addWidget(self.probability_label, 0, 6, 1, 1)
+
+        self.sensors_label = QLabel()
+        self.sensors_label.setText('Sensors')
+        self.sensors_label.setStyleSheet('font-size: 18px;padding: 0px 0px 0px 0px; color: %s;' % self.white_color)
+        self.data_grid.addWidget(self.sensors_label, 0, 7, 1, 4)
+
+        self.acetone_color_label = QLabel()
+        self.acetone_color_label.setText('||||')
+        self.acetone_color_label.setStyleSheet('font-size: 18px;padding: 0px 0px 0px 0px; color: %s;' % self.red_color)
+        self.data_grid.addWidget(self.acetone_color_label, 1, 0, 1, 1)
+
+        self.acetone_subst_label = QLabel()
+
+        self.data_label = QLabel()
+        self.data_label.setPixmap(QPixmap('res/pack/data_background.png'))
+
+        self.layout_2.addSpacing(10)
+
+        self.layout_2.addWidget(self.data_label)
 
         self.pages[2].setLayout(self.layout_2)
         # ################### END PAGE 2
@@ -509,12 +545,12 @@ class Window(QWidget):
         self.menu_grid_txt_3.addWidget(self.menu_label_txt_3, 0, 0)
 
         self.uart_label_txt_3 = QLabel()
-        self.uart_label_txt_3.setText('UART')
+        self.uart_label_txt_3.setText('METER')
         self.uart_label_txt_3.setStyleSheet('font-size: 18px;padding: 0px 35px 0px 35px; color: %s;' % self.font_gray_color)
         self.menu_grid_txt_3.addWidget(self.uart_label_txt_3, 0, 1)
 
         self.data_label_txt_3 = QLabel()
-        self.data_label_txt_3.setText('METER')
+        self.data_label_txt_3.setText('DATA')
         self.data_label_txt_3.setStyleSheet('font-size: 18px;padding: 0px 38px 0px 28px; color: %s;' % self.font_gray_color)
         self.menu_grid_txt_3.addWidget(self.data_label_txt_3, 0, 2)
 
@@ -565,15 +601,15 @@ class Window(QWidget):
         self.menu_grid_pix_3.addWidget(self.menu_label_pix_3, 0, 0)
 
         self.uart_label_pix_3 = QLabel()
-        self.uart_label_pix_3.setPixmap(QPixmap('res/pack/gas_icon_UART.png'))
+        self.uart_label_pix_3.setPixmap(QPixmap('res/pack/gas_icon_meter.png'))
         self.uart_label_pix_3.setStyleSheet('padding: 5px 30px 0px 30px;')
-        self.uart_label_pix_3.mousePressEvent = self.select_menu_config
+        self.uart_label_pix_3.mousePressEvent = self.select_menu_meter
         self.menu_grid_pix_3.addWidget(self.uart_label_pix_3, 0, 1)
 
         self.data_label_pix_3 = QLabel()
-        self.data_label_pix_3.setPixmap(QPixmap('res/pack/gas_icon_meter.png'))
+        self.data_label_pix_3.setPixmap(QPixmap('res/pack/gas_icon_data.png'))
         self.data_label_pix_3.setStyleSheet('padding: 5px 30px 0px 30px;')
-        self.data_label_pix_3.mousePressEvent = self.select_menu_meter
+        self.data_label_pix_3.mousePressEvent = self.select_menu_data
         self.menu_grid_pix_3.addWidget(self.data_label_pix_3, 0, 2)
 
         self.fan_label_pix_3 = QLabel()
@@ -862,4 +898,4 @@ class Window(QWidget):
         self.time_label_txt_1.setText(t)
         self.time_label_txt_2.setText(t)
         self.time_label_txt_3.setText(t)
-        # self.time_label_txt_4.setText(t)
+        self.time_label_txt_4.setText(t)
