@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f5a8691e-177b-4bf8-ac89-865c0ffb6da4" name="Default Changelist" comment="Initial commit">
-      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+    <list default="true" id="f5a8691e-177b-4bf8-ac89-865c0ffb6da4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/paul.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/paul.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/window3.py" beforeDir="false" afterPath="$PROJECT_DIR$/window3.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -13,7 +14,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.6305693">
+    <splitter split-orientation="horizontal" split-proportion="0.47256294">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
@@ -28,20 +29,11 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/window3.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="259">
-                  <caret line="352" column="17" selection-start-line="352" selection-start-column="17" selection-end-line="352" selection-end-column="17" />
+                <state relative-caret-position="452">
+                  <caret line="760" column="31" lean-forward="true" selection-start-line="760" selection-start-column="31" selection-end-line="760" selection-end-column="31" />
                   <folding>
                     <element signature="e#0#106#0" expanded="true" />
                   </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/test.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="494">
-                  <caret line="114" column="21" selection-end-line="114" selection-end-column="50" />
                 </state>
               </provider>
             </entry>
@@ -74,8 +66,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/window3.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1500">
-                  <caret line="273" selection-start-line="273" selection-end-line="273" />
+                <state relative-caret-position="145">
+                  <caret line="810" column="28" selection-start-line="810" selection-start-column="28" selection-end-line="810" selection-end-column="28" />
                   <folding>
                     <element signature="e#0#106#0" expanded="true" />
                   </folding>
@@ -93,6 +85,16 @@
         <option value="Python Script" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>meter</find>
+      <find>data fusion</find>
+      <find>time_label_txt_</find>
+      <find>fan_label_pix_</find>
+      <find>fan_label_pix</find>
+      <find>fan_anim</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -120,8 +122,23 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
       <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="raspi_gui" type="b2602c69:ProjectViewProjectNode" />
+              <item name="raspi_gui" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="raspi_gui" type="b2602c69:ProjectViewProjectNode" />
+              <item name="raspi_gui" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -178,6 +195,21 @@
       <option name="presentableId" value="Default" />
       <updated>1541950097963</updated>
     </task>
+    <task id="LOCAL-00001" summary="Implemented the other tabs with header">
+      <created>1542835324499</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1542835324499</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Added label_4">
+      <created>1542835666490</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1542835666490</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -203,6 +235,11 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Implemented the other tabs with header" />
+    <MESSAGE value="Added label_4" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added label_4" />
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/window4.py" />
     <entry file="file://$USER_HOME$/.PyCharmCE2018.2/system/python_stubs/-1247971763/PyQt5/QtGui/QFont.py">
@@ -219,20 +256,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="35" selection-start-line="2" selection-start-column="35" selection-end-line="2" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/thread_list.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Dial.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -243,17 +266,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/thread_list.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="35" selection-start-line="2" selection-start-column="35" selection-end-line="2" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="114" column="21" selection-end-line="114" selection-end-column="50" />
+        <state relative-caret-position="374">
+          <caret line="109" column="53" lean-forward="true" selection-end-line="119" selection-end-column="50" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/window3.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="352" column="17" selection-start-line="352" selection-start-column="17" selection-end-line="352" selection-end-column="17" />
+        <state relative-caret-position="452">
+          <caret line="760" column="31" lean-forward="true" selection-start-line="760" selection-start-column="31" selection-end-line="760" selection-end-column="31" />
           <folding>
             <element signature="e#0#106#0" expanded="true" />
           </folding>

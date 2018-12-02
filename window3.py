@@ -11,6 +11,7 @@ from thread_list import BgThread
 # ##################################################################
 
 class Window(QWidget):
+    bgWork: BgThread
     clk_stop_signal = pyqtSignal()
     bg_stop_signal = pyqtSignal()
     fan_signal = pyqtSignal()
@@ -38,7 +39,7 @@ class Window(QWidget):
         self.height = 600
         self.black_color = '#000000'
         self.gray_color = '#373435'
-        self.dark_gray_color= '#1b1a1a'
+        self.dark_gray_color = '#1b1a1a'
         self.green_color = '#92d500'
         self.blue_color = '#1bb2bb'
         self.dark_blue_color = '#2e679d'
@@ -139,7 +140,7 @@ class Window(QWidget):
         self.menu_grid_pix_0.setSpacing(0)
 
         self.menu_label_pix_0 = QLabel()
-        self.menu_label_pix_0.setPixmap(QPixmap('res/pack/gas_icon_data.png'))
+        self.menu_label_pix_0.setPixmap(QPixmap('res/pack/gas_icon_meter.png'))
         self.menu_label_pix_0.setStyleSheet('padding: 5px 30px 0px 30px;')
         self.menu_label_pix_0.mousePressEvent = self.select_menu_meter
         self.menu_grid_pix_0.addWidget(self.menu_label_pix_0, 0, 0)
@@ -157,7 +158,7 @@ class Window(QWidget):
         self.menu_grid_pix_0.addWidget(self.data_label_pix_0, 0, 2)
 
         self.fan_label_pix_0 = QLabel()
-        self.fan_label_pix_0.setPixmap(QPixmap('res/pack/gas_icon_fan_off.png'))
+        self.fan_label_pix_0.setMovie(self.fan_anim)
         self.fan_label_pix_0.setStyleSheet('padding: 5px 30px 0px 30px;')
         self.fan_label_pix_0.mousePressEvent = self.toggle_fan
         self.menu_grid_pix_0.addWidget(self.fan_label_pix_0, 0, 3)
@@ -287,7 +288,7 @@ class Window(QWidget):
         self.menu_grid_pix_1.addWidget(self.data_label_pix_1, 0, 2)
 
         self.fan_label_pix_1 = QLabel()
-        self.fan_label_pix_1.setPixmap(QPixmap('res/pack/gas_icon_fan_off.png'))
+        self.fan_label_pix_1.setMovie(self.fan_anim)
         self.fan_label_pix_1.setStyleSheet('padding: 5px 30px 0px 30px;')
         self.fan_label_pix_1.mousePressEvent = self.toggle_fan
         self.menu_grid_pix_1.addWidget(self.fan_label_pix_1, 0, 3)
@@ -381,7 +382,7 @@ class Window(QWidget):
         self.menu_grid_txt_2.addWidget(self.uart_label_txt_2, 0, 1)
 
         self.data_label_txt_2 = QLabel()
-        self.data_label_txt_2.setText('DATA')
+        self.data_label_txt_2.setText('METER')
         self.data_label_txt_2.setStyleSheet(
             'font-size: 18px;padding: 0px 40px 0px 40px; color: %s;' % self.font_gray_color)
         self.menu_grid_txt_2.addWidget(self.data_label_txt_2, 0, 2)
@@ -442,13 +443,13 @@ class Window(QWidget):
         self.menu_grid_pix_2.addWidget(self.uart_label_pix_2, 0, 1)
 
         self.data_label_pix_2 = QLabel()
-        self.data_label_pix_2.setPixmap(QPixmap('res/pack/gas_icon_data.png'))
+        self.data_label_pix_2.setPixmap(QPixmap('res/pack/gas_icon_meter.png'))
         self.data_label_pix_2.setStyleSheet('padding: 5px 30px 0px 30px;')
-        self.data_label_pix_2.mousePressEvent = self.select_menu_data
+        self.data_label_pix_2.mousePressEvent = self.select_menu_meter
         self.menu_grid_pix_2.addWidget(self.data_label_pix_2, 0, 2)
 
         self.fan_label_pix_2 = QLabel()
-        self.fan_label_pix_2.setPixmap(QPixmap('res/pack/gas_icon_fan_off.png'))
+        self.fan_label_pix_2.setMovie(self.fan_anim)
         self.fan_label_pix_2.setStyleSheet('padding: 5px 30px 0px 30px;')
         self.fan_label_pix_2.mousePressEvent = self.toggle_fan
         self.menu_grid_pix_2.addWidget(self.fan_label_pix_2, 0, 3)
@@ -570,13 +571,13 @@ class Window(QWidget):
         self.menu_grid_pix_3.addWidget(self.uart_label_pix_3, 0, 1)
 
         self.data_label_pix_3 = QLabel()
-        self.data_label_pix_3.setPixmap(QPixmap('res/pack/gas_icon_data.png'))
+        self.data_label_pix_3.setPixmap(QPixmap('res/pack/gas_icon_meter.png'))
         self.data_label_pix_3.setStyleSheet('padding: 5px 30px 0px 30px;')
         self.data_label_pix_3.mousePressEvent = self.select_menu_meter
         self.menu_grid_pix_3.addWidget(self.data_label_pix_3, 0, 2)
 
         self.fan_label_pix_3 = QLabel()
-        self.fan_label_pix_3.setPixmap(QPixmap('res/pack/gas_icon_fan_off.png'))
+        self.fan_label_pix_3.setMovie(self.fan_anim)
         self.fan_label_pix_3.setStyleSheet('padding: 5px 30px 0px 30px;')
         self.fan_label_pix_3.mousePressEvent = self.toggle_fan
         self.menu_grid_pix_3.addWidget(self.fan_label_pix_3, 0, 3)
@@ -621,15 +622,139 @@ class Window(QWidget):
 
         # ######### PAGE 4 MQ HELP
         self.layout_4 = QVBoxLayout()
-        self.layout_4.setContentsMargins(5, 5, 5, 5)
+        self.layout_4.setContentsMargins(0, 0, 0, 0)
 
-        label4 = QLabel()
-        label4.setText('MQ HELP')
-        label4.setStyleSheet('font-size: 26px; padding:50px 10px 0px 5px; color: %s;height:20px' % self.green_color)
-        self.layout_4.addWidget(label4)
+        self.title_box1_4 = QHBoxLayout()
+        self.title_box1_4.setContentsMargins(0, 0, 0, 0)
+
+        self.defend_txt_4 = QLabel()
+        self.defend_txt_4.setText('DEFEND Gas Sensor Data Fusion')
+        self.defend_txt_4.setStyleSheet(
+            'font-size: 18px; padding:0px 0px 0px 0px; color: %s;height:20px' % self.font_gray_color)
+        self.title_box1_4.addWidget(self.defend_txt_4)
+
+        self.title_box1_4.addSpacing(15)
+
+        self.menu_grid_txt_4 = QGridLayout()
+        self.menu_grid_txt_4.setContentsMargins(0, 0, 0, 0)
+        self.menu_grid_txt_4.setSpacing(0)
+
+        self.menu_label_txt_4 = QLabel()
+        self.menu_label_txt_4.setText('MENU')
+        self.menu_label_txt_4.setStyleSheet(
+            'font-size: 18px;padding: 0px 35px 0px 30px; color: %s;' % self.font_gray_color)
+        self.menu_grid_txt_4.addWidget(self.menu_label_txt_4, 0, 0)
+
+        self.uart_label_txt_4 = QLabel()
+        self.uart_label_txt_4.setText('UART')
+        self.uart_label_txt_4.setStyleSheet(
+            'font-size: 18px;padding: 0px 35px 0px 35px; color: %s;' % self.font_gray_color)
+        self.menu_grid_txt_4.addWidget(self.uart_label_txt_4, 0, 1)
+
+        self.data_label_txt_4 = QLabel()
+        self.data_label_txt_4.setText('METER')
+        self.data_label_txt_4.setStyleSheet(
+            'font-size: 18px;padding: 0px 40px 0px 40px; color: %s;' % self.font_gray_color)
+        self.menu_grid_txt_4.addWidget(self.data_label_txt_4, 0, 2)
+
+        self.fan_label_txt_4 = QLabel()
+        self.fan_label_txt_4.setText('FAN')
+        self.fan_label_txt_4.setStyleSheet(
+            'font-size: 18px;padding: 0px 45px 0px 40px; color: %s;' % self.font_gray_color)
+        self.menu_grid_txt_4.addWidget(self.fan_label_txt_4, 0, 3)
+
+        self.title_box1_4.addLayout(self.menu_grid_txt_4)
+
+        self.title_box1_4.addSpacing(15)
+
+        self.gmt_label_4 = QLabel()
+        self.gmt_label_4.setText('GMT +2')
+        self.gmt_label_4.setStyleSheet('font-size: 18px;padding: 0px 0px 0px 90px; color: %s;' % self.font_gray_color)
+
+        self.title_box1_4.addWidget(self.gmt_label_4)
+
+        self.layout_4.addLayout(self.title_box1_4)
+
+        self.title_box2_4 = QHBoxLayout()  # second title box with pixmaps
+        self.title_box2_4.setContentsMargins(0, 0, 0, 0)
+        self.title_box2_4.setSpacing(0)
+
+        self.frame1_4 = QFrame()
+        self.frame1_4.setFixedWidth(240)
+        self.frame1_4.setFixedHeight(80)
+        self.frame1_4.setStyleSheet('background-color:%s; border: 0px; border-radius: 10px;' % self.dark_gray_color)
+        self.defend_pix_4 = QLabel(self.frame1_4)
+        self.defend_pix_4.setPixmap(QPixmap('res/pack/defend.png'))
+        self.defend_pix_4.setFixedWidth(240)
+        self.defend_pix_4.setAlignment(Qt.AlignCenter)
+        self.title_box2_4.addWidget(self.frame1_4)
+
+        self.title_box2_4.addSpacing(15)
+
+        self.frame2_4 = QFrame()
+        self.frame2_4.setStyleSheet('background-color:%s; border: 0px; border-radius: 10px;' % self.dark_gray_color)
+        self.frame2_4.setFixedWidth(495)
+        self.frame2_4.setFixedHeight(80)
+
+        self.menu_grid_pix_4 = QGridLayout(self.frame2_4)
+        self.menu_grid_pix_4.setContentsMargins(0, 0, 0, 0)
+        self.menu_grid_pix_4.setSpacing(0)
+
+        self.menu_label_pix_4 = QLabel()
+        self.menu_label_pix_4.setPixmap(QPixmap('res/pack/gas_icon_main_menu.png'))
+        self.menu_label_pix_4.setStyleSheet('padding: 5px 30px 0px 30px;')
+        self.menu_label_pix_4.mousePressEvent = self.select_menu_main
+        self.menu_grid_pix_4.addWidget(self.menu_label_pix_4, 0, 0)
+
+        self.uart_label_pix_4 = QLabel()
+        self.uart_label_pix_4.setPixmap(QPixmap('res/pack/gas_icon_UART.png'))
+        self.uart_label_pix_4.setStyleSheet('padding: 5px 30px 0px 30px;')
+        self.uart_label_pix_4.mousePressEvent = self.select_menu_config
+        self.menu_grid_pix_4.addWidget(self.uart_label_pix_4, 0, 1)
+
+        self.data_label_pix_4 = QLabel()
+        self.data_label_pix_4.setPixmap(QPixmap('res/pack/gas_icon_meter.png'))
+        self.data_label_pix_4.setStyleSheet('padding: 5px 30px 0px 30px;')
+        self.data_label_pix_4.mousePressEvent = self.select_menu_meter
+        self.menu_grid_pix_4.addWidget(self.data_label_pix_4, 0, 2)
+
+        self.fan_label_pix_4 = QLabel()
+        self.fan_label_pix_4.setMovie(self.fan_anim)
+        self.fan_label_pix_4.setStyleSheet('padding: 5px 30px 0px 30px;')
+        self.fan_label_pix_4.mousePressEvent = self.toggle_fan
+        self.menu_grid_pix_4.addWidget(self.fan_label_pix_4, 0, 3)
+
+        self.title_box2_4.addWidget(self.frame2_4)
+
+        self.title_box2_4.addSpacing(15)
+
+        self.frame3_4 = QFrame()
+        self.frame3_4.setStyleSheet('background-color:%s; border: 0px; border-radius: 10px;' % self.dark_gray_color)
+        self.frame3_4.setFixedWidth(240)
+        self.frame3_4.setFixedHeight(80)
+
+        self.clock_box_4 = QHBoxLayout(self.frame3_4)
+        self.time_label_pix_4 = QLabel()
+        self.time_label_pix_4.setPixmap(QPixmap('res/pack/clock.png'))
+        self.time_label_txt_4 = QLabel()
+        self.time_label_txt_4.setText('00:00:00')
+        self.time_label_txt_4.setStyleSheet('font-size: 40px; color: %s' % self.white_color)
+        self.clock_box_4.addWidget(self.time_label_pix_4)
+        self.clock_box_4.addWidget(self.time_label_txt_4)
+        self.title_box2_4.addWidget(self.frame3_4)
+
+        self.layout_4.addLayout(self.title_box2_4)
+
+        self.label4 = QLabel()
+        self.label4.setText('MQ HELP')
+        self.label4.setStyleSheet('font-size: 26px; padding:50px 10px 0px 5px; color: %s;height:20px' % self.green_color)
+        self.layout_4.addWidget(self.label4)
+        self.layout_4.addStretch()
 
         self.pages[4].setLayout(self.layout_4)
         # ################### END PAGE 4
+
+        self.fan_anim.start()
 
         # ######### STACK
         self.stack = QStackedWidget()
@@ -676,18 +801,17 @@ class Window(QWidget):
         self.current_page = 3
 
     def select_menu_help(self, sensor_nr):
-        #self.stack.setCurrentIndex(4)
-        #self.current_page = 4
+        self.label4.setText(self.sensor_pixmap[sensor_nr])
+        self.stack.setCurrentIndex(4)
+        self.current_page = 4
         print(sensor_nr)
 
     def toggle_fan(self, ev):
         self.fan_powered = not self.fan_powered
         if self.fan_powered:
-            self.fan_label_pix_1.setMovie(self.fan_anim)
             self.fan_anim.start()
         else:
             self.fan_anim.stop()
-            self.fan_label_pix_1.setPixmap(QPixmap('res/pack/gas_icon_fan_off.png'))
         self.fan_signal.emit()
 
     def toggle_recording(self, ev):
@@ -721,7 +845,6 @@ class Window(QWidget):
             self.label33.setStyleSheet(
                 'font-size: 40px; padding: 50px 0px 0px 5px; color: %s;height:20px' % self.green_color)
 
-
     @pyqtSlot(list)
     def data_slot(self, vals):
         for k in range(len(vals)):
@@ -735,4 +858,8 @@ class Window(QWidget):
 
     @pyqtSlot(str)
     def clock_slot(self, t):
+        self.time_label_txt_0.setText(t)
         self.time_label_txt_1.setText(t)
+        self.time_label_txt_2.setText(t)
+        self.time_label_txt_3.setText(t)
+        # self.time_label_txt_4.setText(t)
