@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QWidget, QGridLayout, QVBoxLayout, QHBoxLayout, QFra
 from PyQt5.QtCore import pyqtSlot, Qt, pyqtSignal
 from PyQt5.QtGui import QPalette, QPixmap, QFontDatabase, QPainter, QColor, QMovie, QFont
 from Dial import DialWidget
+from Graph import GraphWidget
 from thread_list import BgThread
 
 
@@ -475,43 +476,184 @@ class Window(QWidget):
 
         self.layout_2.addLayout(self.title_box2_2)
 
-        self.data_grid_frame = QFrame()
-        self.data_grid_frame.setStyleSheet('background-color:%s;' % self.gray_color)
-        self.data_grid = QGridLayout(self.data_grid_frame)
-
-        self.data_grid.setColumnMinimumWidth(0, 60)
-
-        self.substance_label = QLabel()
-        self.substance_label.setText('Substance')
-        self.substance_label.setStyleSheet('font-size: 18px;padding: 0px 0px 0px 0px; color: %s;' % self.white_color)
-        self.data_grid.addWidget(self.substance_label, 0, 1, 1, 3)
-
-        self.formula_label = QLabel()
-        self.formula_label.setText('Formula')
-        self.formula_label.setStyleSheet('font-size: 18px;padding: 0px 0px 0px 0px; color: %s;' % self.white_color)
-        self.data_grid.addWidget(self.formula_label, 0, 4, 1, 2)
-
-        self.data_grid.setColumnMinimumWidth(5, 60 * 5)
-
-        self.probability_label = QLabel()
-        self.probability_label.setText('Probability')
-        self.probability_label.setStyleSheet('font-size: 18px;padding: 0px 0px 0px 0px; color: %s;' % self.white_color)
-        self.data_grid.addWidget(self.probability_label, 0, 6, 1, 1)
-
-        self.sensors_label = QLabel()
-        self.sensors_label.setText('Sensors')
-        self.sensors_label.setStyleSheet('font-size: 18px;padding: 0px 0px 0px 0px; color: %s;' % self.white_color)
-        self.data_grid.addWidget(self.sensors_label, 0, 7, 1, 4)
-
-        self.acetone_color_label = QLabel()
-        self.acetone_color_label.setText('||||')
-        self.acetone_color_label.setStyleSheet('font-size: 18px;padding: 0px 0px 0px 0px; color: %s;' % self.red_color)
-        self.data_grid.addWidget(self.acetone_color_label, 1, 0, 1, 1)
-
-        self.acetone_subst_label = QLabel()
-
         self.data_label = QLabel()
         self.data_label.setPixmap(QPixmap('res/pack/data_background.png'))
+
+        start_y = 47
+        start_x = 700
+        dif_y = 35
+        dif_x = 90
+
+        # probabilities
+        self.acetone_probab_label = QLabel(self.data_label)
+        self.acetone_probab_label.setText('0%')
+        self.acetone_probab_label.setStyleSheet('background: transparent; border: 0px; width:100px;'
+                                                'border-radius: 10px;font-size: 18px; color: %s' % self.white_color)
+        self.acetone_probab_label.setAlignment(Qt.AlignCenter)
+        self.acetone_probab_label.move(start_x, start_y)
+
+        self.ammonium_probab_label = QLabel(self.data_label)
+        self.ammonium_probab_label.setText('0%')
+        self.ammonium_probab_label.setStyleSheet(
+            'background: transparent; font-size: 18px; color: %s' % self.white_color)
+        self.ammonium_probab_label.setAlignment(Qt.AlignHCenter)
+        self.ammonium_probab_label.move(start_x, start_y + dif_y)
+
+        self.benzene_probab_label = QLabel(self.data_label)
+        self.benzene_probab_label.setText('0%')
+        self.benzene_probab_label.setStyleSheet(
+            'background: transparent; font-size: 18px; color: %s' % self.white_color)
+        self.benzene_probab_label.setAlignment(Qt.AlignHCenter)
+        self.benzene_probab_label.move(start_x, start_y + 2*dif_y)
+
+        self.carbon_probab_label = QLabel(self.data_label)
+        self.carbon_probab_label.setText('0%')
+        self.carbon_probab_label.setStyleSheet(
+            'background: transparent; font-size: 18px; color: %s' % self.white_color)
+        self.carbon_probab_label.setAlignment(Qt.AlignHCenter)
+        self.carbon_probab_label.move(start_x, start_y + 3*dif_y)
+
+        self.chlorine_probab_label = QLabel(self.data_label)
+        self.chlorine_probab_label.setText('0%')
+        self.chlorine_probab_label.setStyleSheet(
+            'background: transparent; font-size: 18px; color: %s' % self.white_color)
+        self.chlorine_probab_label.setAlignment(Qt.AlignHCenter)
+        self.chlorine_probab_label.move(start_x, start_y + 4*dif_y)
+
+        self.ethanol_probab_label = QLabel(self.data_label)
+        self.ethanol_probab_label.setText('0%')
+        self.ethanol_probab_label.setStyleSheet(
+            'background: transparent; font-size: 18px; color: %s' % self.white_color)
+        self.ethanol_probab_label.setAlignment(Qt.AlignHCenter)
+        self.ethanol_probab_label.move(start_x, start_y + 5*dif_y)
+
+        self.hydrogen_probab_label = QLabel(self.data_label)
+        self.hydrogen_probab_label.setText('0%')
+        self.hydrogen_probab_label.setStyleSheet(
+            'background: transparent; font-size: 18px; color: %s' % self.white_color)
+        self.hydrogen_probab_label.setAlignment(Qt.AlignHCenter)
+        self.hydrogen_probab_label.move(start_x, start_y + 6*dif_y)
+
+        self.lpg_probab_label = QLabel(self.data_label)
+        self.lpg_probab_label.setText('0%')
+        self.lpg_probab_label.setStyleSheet(
+            'background: transparent; font-size: 18px; color: %s' % self.white_color)
+        self.lpg_probab_label.setAlignment(Qt.AlignHCenter)
+        self.lpg_probab_label.move(start_x, start_y + 7*dif_y)
+
+        self.methane_probab_label = QLabel(self.data_label)
+        self.methane_probab_label.setText('0%')
+        self.methane_probab_label.setStyleSheet(
+            'background: transparent; font-size: 18px; color: %s' % self.white_color)
+        self.methane_probab_label.setAlignment(Qt.AlignHCenter)
+        self.methane_probab_label.move(start_x, start_y + 8*dif_y)
+
+        self.nitrogen_probab_label = QLabel(self.data_label)
+        self.nitrogen_probab_label.setText('0%')
+        self.nitrogen_probab_label.setStyleSheet(
+            'background: transparent; font-size: 18px; color: %s' % self.white_color)
+        self.nitrogen_probab_label.setAlignment(Qt.AlignHCenter)
+        self.nitrogen_probab_label.move(start_x, start_y + 9*dif_y)
+
+        self.propane_probab_label = QLabel(self.data_label)
+        self.propane_probab_label.setText('0%')
+        self.propane_probab_label.setStyleSheet(
+            'background: transparent; font-size: 18px; color: %s' % self.white_color)
+        self.propane_probab_label.setAlignment(Qt.AlignHCenter)
+        self.propane_probab_label.move(start_x, start_y + 10*dif_y)
+
+        self.toluene_probab_label = QLabel(self.data_label)
+        self.toluene_probab_label.setText('0%')
+        self.toluene_probab_label.setStyleSheet(
+            'background: transparent; font-size: 18px; color: %s' % self.white_color)
+        self.toluene_probab_label.setAlignment(Qt.AlignHCenter)
+        self.toluene_probab_label.move(start_x, start_y + 11*dif_y)
+
+        # sensors
+        self.acetone_sensors_label = QLabel(self.data_label)
+        self.acetone_sensors_label.setText('MQ2 MQ3 MQ4 MQ5 MQ135')
+        self.acetone_sensors_label.setStyleSheet('background: transparent; border: 0px; width:100px;'
+                                                 'border-radius: 10px;font-size: 18px; color: %s' % self.white_color)
+        self.acetone_sensors_label.setAlignment(Qt.AlignCenter)
+        self.acetone_sensors_label.move(start_x + dif_x, start_y)
+
+        self.ammonium_sensors_label = QLabel(self.data_label)
+        self.ammonium_sensors_label.setText('MQ135')
+        self.ammonium_sensors_label.setStyleSheet(
+            'background: transparent; font-size: 18px; color: %s' % self.white_color)
+        self.ammonium_sensors_label.setAlignment(Qt.AlignHCenter)
+        self.ammonium_sensors_label.move(start_x + dif_x, start_y + dif_y)
+
+        self.benzene_sensors_label = QLabel(self.data_label)
+        self.benzene_sensors_label.setText('MQ3')
+        self.benzene_sensors_label.setStyleSheet(
+            'background: transparent; font-size: 18px; color: %s' % self.white_color)
+        self.benzene_sensors_label.setAlignment(Qt.AlignHCenter)
+        self.benzene_sensors_label.move(start_x + dif_x, start_y + 2 * dif_y)
+
+        self.carbon_sensors_label = QLabel(self.data_label)
+        self.carbon_sensors_label.setText('MQ2 MQ3 MQ4 MQ6 MQ7')
+        self.carbon_sensors_label.setStyleSheet(
+            'background: transparent; font-size: 18px; color: %s' % self.white_color)
+        self.carbon_sensors_label.setAlignment(Qt.AlignHCenter)
+        self.carbon_sensors_label.move(start_x + dif_x, start_y + 3 * dif_y)
+
+        self.chlorine_sensors_label = QLabel(self.data_label)
+        self.chlorine_sensors_label.setText('MQ135')
+        self.chlorine_sensors_label.setStyleSheet(
+            'background: transparent; font-size: 18px; color: %s' % self.white_color)
+        self.chlorine_sensors_label.setAlignment(Qt.AlignHCenter)
+        self.chlorine_sensors_label.move(start_x + dif_x, start_y + 4 * dif_y)
+
+        self.ethanol_sensors_label = QLabel(self.data_label)
+        self.ethanol_sensors_label.setText('MQ2 MQ4 MQ5 MQ135')
+        self.ethanol_sensors_label.setStyleSheet(
+            'background: transparent; font-size: 18px; color: %s' % self.white_color)
+        self.ethanol_sensors_label.setAlignment(Qt.AlignHCenter)
+        self.ethanol_sensors_label.move(start_x + dif_x, start_y + 5 * dif_y)
+
+        self.hydrogen_sensors_label = QLabel(self.data_label)
+        self.hydrogen_sensors_label.setText('MQ2 MQ4 MQ7 MQ8')
+        self.hydrogen_sensors_label.setStyleSheet(
+            'background: transparent; font-size: 18px; color: %s' % self.white_color)
+        self.hydrogen_sensors_label.setAlignment(Qt.AlignHCenter)
+        self.hydrogen_sensors_label.move(start_x + dif_x, start_y + 6 * dif_y)
+
+        self.lpg_sensors_label = QLabel(self.data_label)
+        self.lpg_sensors_label.setText('MQ2 MQ3 MQ4 MQ5 MQ6')
+        self.lpg_sensors_label.setStyleSheet(
+            'background: transparent; font-size: 18px; color: %s' % self.white_color)
+        self.lpg_sensors_label.setAlignment(Qt.AlignHCenter)
+        self.lpg_sensors_label.move(start_x + dif_x, start_y + 7 * dif_y)
+
+        self.methane_sensors_label = QLabel(self.data_label)
+        self.methane_sensors_label.setText('MQ2 MQ3 MQ4 MQ5 MQ6')
+        self.methane_sensors_label.setStyleSheet(
+            'background: transparent; font-size: 18px; color: %s' % self.white_color)
+        self.methane_sensors_label.setAlignment(Qt.AlignHCenter)
+        self.methane_sensors_label.move(start_x + dif_x, start_y + 8 * dif_y)
+
+        self.nitrogen_sensors_label = QLabel(self.data_label)
+        self.nitrogen_sensors_label.setText('MQ2 MQ4')
+        self.nitrogen_sensors_label.setStyleSheet(
+            'background: transparent; font-size: 18px; color: %s' % self.white_color)
+        self.nitrogen_sensors_label.setAlignment(Qt.AlignHCenter)
+        self.nitrogen_sensors_label.move(start_x + dif_x, start_y + 9 * dif_y)
+
+        self.propane_sensors_label = QLabel(self.data_label)
+        self.propane_sensors_label.setText('MQ2')
+        self.propane_sensors_label.setStyleSheet(
+            'background: transparent; font-size: 18px; color: %s' % self.white_color)
+        self.propane_sensors_label.setAlignment(Qt.AlignHCenter)
+        self.propane_sensors_label.move(start_x + dif_x, start_y + 10 * dif_y)
+
+        self.toluene_sensors_label = QLabel(self.data_label)
+        self.toluene_sensors_label.setText('MQ135')
+        self.toluene_sensors_label.setStyleSheet(
+            'background: transparent; font-size: 18px; color: %s' % self.white_color)
+        self.toluene_sensors_label.setAlignment(Qt.AlignHCenter)
+        self.toluene_sensors_label.move(start_x + dif_x, start_y + 11 * dif_y)
+
 
         self.layout_2.addSpacing(10)
 
@@ -783,8 +925,12 @@ class Window(QWidget):
 
         self.layout_4.addSpacing(10)
 
-        self.label4 = QLabel()
-        self.layout_4.addWidget(self.label4)
+        self.sensor_details_label = QLabel()
+        self.layout_4.addWidget(self.sensor_details_label)
+
+        self.sensor_details_graph = GraphWidget(self.sensor_details_label)
+        self.sensor_details_graph.move(20, 330)
+        self.sensor_details_graph.resize(945, 120)
 
         self.pages[4].setLayout(self.layout_4)
         # ################### END PAGE 4
@@ -836,7 +982,7 @@ class Window(QWidget):
         self.current_page = 3
 
     def select_menu_help(self, sensor_nr):
-        self.label4.setPixmap(QPixmap('res/pack/data_%s' % self.sensor_pixmap[sensor_nr]))
+        self.sensor_details_label.setPixmap(QPixmap('res/pack/data_%s' % self.sensor_pixmap[sensor_nr]))
         self.stack.setCurrentIndex(4)
         self.current_page = 4
         print(sensor_nr)
