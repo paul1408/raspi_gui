@@ -20,6 +20,7 @@ class Window(QWidget):
 
     def __init__(self):
         super().__init__()
+        self.full_screen = False
         self.val_list = [0]
         self.dial = [DialWidget(100)] * 8
         self.sensor_name_list = ['General Combustible Gas', 'Alcohol',
@@ -185,10 +186,14 @@ class Window(QWidget):
 
         self.layout_0.addLayout(self.title_box2_0)
 
-        label0 = QLabel()
-        label0.setText('Main menu')
-        label0.setStyleSheet('font-size: 24px;padding: 0px 0px 0px 90px; color: %s;' % self.font_gray_color)
-        self.layout_0.addWidget(label0)
+        self.defend_large_label = QLabel()
+        self.defend_large_label.setPixmap(QPixmap('res/pack/defend_large.png'))
+        self.defend_large_label.setStyleSheet('padding: 0px 0px 0px 0px;')
+        self.defend_large_label.setAlignment(Qt.AlignCenter)
+
+        self.layout_0.addSpacing(100)
+
+        self.layout_0.addWidget(self.defend_large_label)
 
         self.layout_0.addStretch()
 
@@ -941,12 +946,15 @@ class Window(QWidget):
         self.stack = QStackedWidget()
         for page in self.pages:
             self.stack.addWidget(page)
-        self.stack.setCurrentIndex(1)
+        self.stack.setCurrentIndex(0)
 
         self.mainLayout = QVBoxLayout()
         self.mainLayout.addWidget(self.stack)
         self.setLayout(self.mainLayout)
-        self.show()
+        if self.full_screen is True:
+            self.showFullScreen()
+        else:
+            self.show()
         # ###################
 
     def keyPressEvent(self, event):
@@ -1021,7 +1029,6 @@ class Window(QWidget):
                 'font-size: 40px; padding: 50px 0px 0px 5px; color: %s;height:20px' % self.red_color)
         else:
             self.bg_stop_signal.emit()
-
             self.label33.setText('CONNECT SERIAL')
             self.label33.setStyleSheet(
                 'font-size: 40px; padding: 50px 0px 0px 5px; color: %s;height:20px' % self.green_color)
